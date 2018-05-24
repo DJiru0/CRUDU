@@ -1,0 +1,106 @@
+﻿@model Crudular.Models.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Item</h4>
+    <hr />
+    <dl class="dl-horizontal text-center jumbotron">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vendor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HostSpecies)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HostSpecies)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkingDilution)
+        </dt>
+        
+        <dd>
+            @Html.DisplayFor(model => model.WorkingDilution)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.POTSNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.POTSNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CatalogNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CatalogNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsHazardous)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsHazardous)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Box.BoxName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Box.BoxName)
+        </dd>
+
+    </dl>
+</div>
+<p class="text-center">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

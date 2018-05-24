@@ -1,0 +1,202 @@
+﻿@model Crudular.ViewModel.Home.IndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container-fluid FilterContainter titleCover">
+    <h3 class="text-center" style="margin-top:8px;padding-top:10px"> Inventory</h3>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm-4 Filter">
+                <select id="vendorSelect" class="select" title="Vendor">
+                    <option selected disabled>Select Vendor</option>
+                    @foreach (var item in @Model.VendorFilter)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4 Filter">
+                <select id="boxIdSelect" class="select">
+                    <option selected disabled>Select Box Id</option>
+                    @foreach (var item in @Model.BoxIdFilter)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-4 Filter">
+                <select id="speciesSelect" class="select">
+                    <option selected disabled>Select Host Species</option>
+                    @foreach (var item in @Model.SpeciesFilter)
+                    {
+                        <option>@item</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="records" class="table table-responsive table-hover table-striped">
+    <thead>
+        <tr class="text-center">
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().ItemID)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().ItemName)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().OrderDate)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().Vendor)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().BoxID)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().HostSpecies)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().WorkingDilution)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().Quantity)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().POTSNumber)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().CatalogNumber)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().Notes)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().IsHazardous)
+            </th>
+            <th class="tableHeader">
+                @Html.DisplayNameFor(model => model.items.First().Box.BoxName)
+            </th>
+            <th class="tableHeader"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+            <tr class="table table-striped" style="border: 1px solid #aac1ab">
+                <td>
+                    @Html.ActionLink(item.ItemID.ToString(), "Edit", new { id = item.ItemID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BoxID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HostSpecies)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkingDilution)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.POTSNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CatalogNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td align="center">
+                    @Html.DisplayFor(modelItem => item.IsHazardous)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Box.BoxName)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.ItemID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+
+        $('#vendorSelect').change(function () {
+            myVendorFunction();
+        });
+        $('#boxIdSelect').change(function () {
+
+            myBoxIdFunction();
+        });
+        $('#speciesSelect').change(function () {
+
+            mySpeciesFunction();
+        });
+    })
+    function myVendorFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("vendorSelect");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("records");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function myBoxIdFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("boxIdSelect");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("records");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+    function mySpeciesFunction() {
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("speciesSelect");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("records");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[5];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

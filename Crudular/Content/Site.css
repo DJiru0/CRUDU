@@ -1,0 +1,150 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color:lightgoldenrodyellow;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color:white;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.Filter {
+    line-height: 45px;
+    background-color: #0c3960;
+}
+.Filter select{
+    width:100%;
+}
+.titleCover {
+    background-color: #0c3960;
+    color: white;
+}
+
+h1 {
+    margin: 4px;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#size,
+#generateButton,
+p {
+    font-size: 16px;
+}
+
+header > p {
+    color: #E68B8B;
+}
+
+#size {
+    min-width: 300px;
+}
+
+#grids {
+    margin: 4px;
+    padding: 5px;
+    background: #ccccff;
+    border: 1px solid #eebb55;
+    border-radius: 7px;
+}
+
+.rowss {
+    display: flex;
+    flow-direction: row;
+}
+
+.grid {
+    background: #639cd1;
+    color: #FFFFFF;
+    border: 1px solid #ccccff;
+    border-radius: 5px;
+    flex: 1;
+}
+.gridNoHover {
+    background: #006499;
+    cursor: not-allowed;
+    color: #FFFFFF;
+    border: 1px solid #ccccff;
+    border-radius: 5px;
+    flex: 1;
+    pointer-events: none;
+}
+.gridSelected {
+    background: #006499;
+    cursor: not-allowed;
+    color: #FFFFFF;
+    border: 1px solid #ccccff;
+    border-radius: 5px;
+    flex: 1;
+    pointer-events: none;
+}
+
+    .grid:hover {
+        border-color: #E68B8B;
+        color: #E68B8B;
+        cursor: pointer;
+    }
+
+.itemLocation {
+    background-color: #fbce03;
+    border: 2px dashed red;
+    color: #891010;
+}
+.filledSpots {
+    background-color: #ff6434;
+    color: white;
+    pointer-events: none;
+}
+.editTitle {
+    margin-top: 0;
+    width: 100%;
+    padding-top: 15px;
+    padding-top: 25px;
+    color: white;
+    border: 5px solid lightblue;
+    border-top: 0;
+    border-bottom: 5px solid #ff6434;
+    background-color: #0c3960;
+}
+th.tableHeader {
+    background-color: #aac1ab;
+}
+.legend {
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.grid:hover span {
+    display:none;
+}
+.grid:hover:after {
+    content: '+';
+    font-size:15px;
+    color:white;
+}
+.grid:hover .span:after {
+    content: '+';
+}

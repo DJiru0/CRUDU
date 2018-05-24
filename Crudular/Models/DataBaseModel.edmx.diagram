@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="721cdd30ccf14850b4ba5a5e4242abf4" Name="Diagram1">
+        <EntityTypeShape EntityType="LitsModel.Box" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.Freezer" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.Item" Width="1.5" PointX="7.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.Lab" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.NIHUser" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.Role" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.ItemLocation" Width="1.5" PointX="9.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="LitsModel.UserRole" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="LitsModel.FK_Box_FreezerID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_Item_BoxID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_Freezer_LabID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_ItemLocation_ItemID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_UserRole_LabID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_UserRole_NIHUserID" ManuallyRouted="false" />
+        <AssociationConnector Association="LitsModel.FK_UserRole_RoleID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

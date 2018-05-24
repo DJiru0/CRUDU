@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title></title>
+    <style>
+        body {
+            color: #7F878F;
+            background: #999999;
+            text-align: center;
+            font-family: Helvetica;
+        }
+
+        header {
+            margin: 4px;
+            padding: 5px;
+            background: #ffeebb;
+            border: 1px solid #eebb55;
+            border-radius: 7px;
+        }
+
+        h1 {
+            margin: 4px;
+            padding: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #size,
+        #generateButton,
+        p {
+            font-size: 16px;
+        }
+
+        header > p {
+            color: #E68B8B;
+        }
+
+        #size {
+            min-width: 300px;
+        }
+
+        #grids {
+            margin: 4px;
+            padding: 5px;
+            background: #ccccff;
+            min-height: 500px;
+            border: 1px solid #eebb55;
+            border-radius: 7px;
+        }
+
+        .row {
+            display: flex;
+            flow-direction: row;
+        }
+
+        .grid {
+            background-color: red;
+            color: #FFFFFF;
+            border: 1px solid #ccccff;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+            .grid:hover {
+                border-color: #E68B8B;
+                color: #E68B8B;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Clickable Grid</h1>
+        <input type="number" min="1" max="20" id="size" placeholder="Please select a number between 1 and 10." required>
+        <button id="generateButton">Generate</button>
+        <button id="clearButton">Clear</button>
+        <p>Attention: After grids are generated, you can click any of the grid which will activate a popup window containing its value.</p>
+    </header>
+
+    <div id="grids"></div>
+    <script>
+$(document).ready(function () {
+
+        generate();
+        clear();
+        logNumber();
+})
+function generate() {
+        $("#generateButton").on("click", function () {
+            var value = parseInt($("#size").val());
+            if (value > 20 || value < 1) {
+                alert("Please select a number betweeen 1 and 20!");
+                return;
+            }
+            var content = "";
+            var num = 1;
+            for (var i = 1; i <= value; i++) {
+                for (var j = 1; j <= value; j++) {
+                    if (j === 1) {
+                        content += "<div class='row'><div class='grid'>" + num + "</div>";
+                    } else if (j === value) {
+                        content += "<div class='grid'>" + num + "</div></div>";
+                    } else {
+                        content += "<div class='grid'>" + num + "</div>";
+                    }
+                    num++;
+                }
+            }
+            $("#grids").html(content);
+        });
+}
+
+//Event delegation
+function logNumber() {
+        $("#grids").on("click", ".grid", function () {
+            var value = $(this).text();
+            alert("You click " + value);
+        });
+}
+
+function clear() {
+        $("#clearButton").on("click", function () {
+            $("#grids").html(" ");
+        });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <title>LITS Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-fixed-top" style="background-color:#17163d">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("L.I.T.S", "Index", "Items", new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-right" style="margin-top:8px;">
+                @using (Html.BeginForm("Search", "Items", FormMethod.Get))
+                {
+                <ul class="nav navbar-nav">
+                    <li><button style="float:right;margin-right:5px" onclick="location.href='@Url.Action("Index", "Items")'" class="btn btn-primary">Refresh List <i class="glyphicon glyphicon-refresh"></i></button></li>
+                    <li><input style="float:right;padding-left:5px" type="text" name="Search" value="@ViewBag.search" class="form-control" placeholder="Search " /></li>
+                    <li><button style="float:right;padding-left:5px" type="submit" value="Search" class="btn btn-success"><i class="glyphicon glyphicon-search"></i></button></li>
+                </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

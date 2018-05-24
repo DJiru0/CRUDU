@@ -1,0 +1,551 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LitsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Box">
+          <Key>
+            <PropertyRef Name="BoxID" />
+          </Key>
+          <Property Name="BoxID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FreezerID" Type="int" Nullable="false" />
+          <Property Name="BoxName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rack" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BoxSize" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Freezer">
+          <Key>
+            <PropertyRef Name="FreezerID" />
+          </Key>
+          <Property Name="FreezerID" Type="int" Nullable="false" />
+          <Property Name="LabID" Type="int" Nullable="false" />
+          <Property Name="FreezerName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FreezerLocation" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="BoxID" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+          <Property Name="Vendor" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="HostSpecies" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="WorkingDilution" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Quantity" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="POTSNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CatalogNumber" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsHazardous" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\DJIRU\SOURCE\REPOS\CRUDULAR\CRUDULAR\APP_DATA\LITS.MDF.dbo.ItemLocation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ItemLocation">
+          <Key>
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="Location" />
+          </Key>
+          <Property Name="ItemID" Type="int" Nullable="false" />
+          <Property Name="Location" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lab">
+          <Key>
+            <PropertyRef Name="LabID" />
+          </Key>
+          <Property Name="LabID" Type="int" Nullable="false" />
+          <Property Name="LabName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LabLocation" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NIHUser">
+          <Key>
+            <PropertyRef Name="NIHUserID" />
+          </Key>
+          <Property Name="NIHUserID" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'C:\USERS\DJIRU\SOURCE\REPOS\CRUDULAR\CRUDULAR\APP_DATA\LITS.MDF.dbo.UserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="LabID" />
+            <PropertyRef Name="NIHUserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="LabID" Type="int" Nullable="false" />
+          <Property Name="NIHUserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Box_FreezerID">
+          <End Role="Freezer" Type="Self.Freezer" Multiplicity="1" />
+          <End Role="Box" Type="Self.Box" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freezer">
+              <PropertyRef Name="FreezerID" />
+            </Principal>
+            <Dependent Role="Box">
+              <PropertyRef Name="FreezerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freezer_LabID">
+          <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+          <End Role="Freezer" Type="Self.Freezer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab">
+              <PropertyRef Name="LabID" />
+            </Principal>
+            <Dependent Role="Freezer">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_BoxID">
+          <End Role="Box" Type="Self.Box" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Box">
+              <PropertyRef Name="BoxID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemLocation_ItemID">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemLocation" Type="Self.ItemLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="ItemLocation">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_LabID">
+          <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab">
+              <PropertyRef Name="LabID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_NIHUserID">
+          <End Role="NIHUser" Type="Self.NIHUser" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NIHUser">
+              <PropertyRef Name="NIHUserID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="NIHUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_RoleID">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LitsModelStoreContainer">
+          <EntitySet Name="Box" EntityType="Self.Box" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Freezer" EntityType="Self.Freezer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lab" EntityType="Self.Lab" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NIHUser" EntityType="Self.NIHUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemLocation" EntityType="Self.ItemLocation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ItemLocation].[ItemID] AS [ItemID], 
+    [ItemLocation].[Location] AS [Location]
+    FROM [dbo].[ItemLocation] AS [ItemLocation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserRole].[LabID] AS [LabID], 
+    [UserRole].[NIHUserID] AS [NIHUserID], 
+    [UserRole].[RoleID] AS [RoleID]
+    FROM [dbo].[UserRole] AS [UserRole]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Box_FreezerID" Association="Self.FK_Box_FreezerID">
+            <End Role="Freezer" EntitySet="Freezer" />
+            <End Role="Box" EntitySet="Box" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freezer_LabID" Association="Self.FK_Freezer_LabID">
+            <End Role="Lab" EntitySet="Lab" />
+            <End Role="Freezer" EntitySet="Freezer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_BoxID" Association="Self.FK_Item_BoxID">
+            <End Role="Box" EntitySet="Box" />
+            <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemLocation_ItemID" Association="Self.FK_ItemLocation_ItemID">
+            <End Role="Item" EntitySet="Item" />
+            <End Role="ItemLocation" EntitySet="ItemLocation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_LabID" Association="Self.FK_UserRole_LabID">
+            <End Role="Lab" EntitySet="Lab" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_NIHUserID" Association="Self.FK_UserRole_NIHUserID">
+            <End Role="NIHUser" EntitySet="NIHUser" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_RoleID" Association="Self.FK_UserRole_RoleID">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LitsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Box">
+          <Key>
+            <PropertyRef Name="BoxID" />
+          </Key>
+          <Property Name="BoxID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FreezerID" Type="Int32" Nullable="false" />
+          <Property Name="BoxName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rack" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BoxSize" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Freezer" Relationship="Self.FK_Box_FreezerID" FromRole="Box" ToRole="Freezer" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Item_BoxID" FromRole="Box" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Freezer">
+          <Key>
+            <PropertyRef Name="FreezerID" />
+          </Key>
+          <Property Name="FreezerID" Type="Int32" Nullable="false" />
+          <Property Name="LabID" Type="Int32" Nullable="false" />
+          <Property Name="FreezerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FreezerLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Boxes" Relationship="Self.FK_Box_FreezerID" FromRole="Freezer" ToRole="Box" />
+          <NavigationProperty Name="Lab" Relationship="Self.FK_Freezer_LabID" FromRole="Freezer" ToRole="Lab" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemID" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="BoxID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Vendor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="HostSpecies" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WorkingDilution" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantity" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="POTSNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CatalogNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsHazardous" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Box" Relationship="Self.FK_Item_BoxID" FromRole="Item" ToRole="Box" />
+          <NavigationProperty Name="ItemLocations" Relationship="Self.FK_ItemLocation_ItemID" FromRole="Item" ToRole="ItemLocation" />
+        </EntityType>
+        <EntityType Name="Lab">
+          <Key>
+            <PropertyRef Name="LabID" />
+          </Key>
+          <Property Name="LabID" Type="Int32" Nullable="false" />
+          <Property Name="LabName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LabLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Freezers" Relationship="Self.FK_Freezer_LabID" FromRole="Lab" ToRole="Freezer" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_LabID" FromRole="Lab" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="NIHUser">
+          <Key>
+            <PropertyRef Name="NIHUserID" />
+          </Key>
+          <Property Name="NIHUserID" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_NIHUserID" FromRole="NIHUser" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRole_RoleID" FromRole="Role" ToRole="UserRole" />
+        </EntityType>
+        <EntityType Name="ItemLocation">
+          <Key>
+            <PropertyRef Name="ItemID" />
+            <PropertyRef Name="Location" />
+          </Key>
+          <Property Name="ItemID" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_ItemLocation_ItemID" FromRole="ItemLocation" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="LabID" />
+            <PropertyRef Name="NIHUserID" />
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="LabID" Type="Int32" Nullable="false" />
+          <Property Name="NIHUserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lab" Relationship="Self.FK_UserRole_LabID" FromRole="UserRole" ToRole="Lab" />
+          <NavigationProperty Name="NIHUser" Relationship="Self.FK_UserRole_NIHUserID" FromRole="UserRole" ToRole="NIHUser" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_RoleID" FromRole="UserRole" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK_Box_FreezerID">
+          <End Role="Freezer" Type="Self.Freezer" Multiplicity="1" />
+          <End Role="Box" Type="Self.Box" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freezer">
+              <PropertyRef Name="FreezerID" />
+            </Principal>
+            <Dependent Role="Box">
+              <PropertyRef Name="FreezerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Item_BoxID">
+          <End Role="Box" Type="Self.Box" Multiplicity="1" />
+          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Box">
+              <PropertyRef Name="BoxID" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="BoxID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Freezer_LabID">
+          <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+          <End Role="Freezer" Type="Self.Freezer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab">
+              <PropertyRef Name="LabID" />
+            </Principal>
+            <Dependent Role="Freezer">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemLocation_ItemID">
+          <End Role="Item" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemLocation" Type="Self.ItemLocation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemID" />
+            </Principal>
+            <Dependent Role="ItemLocation">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_LabID">
+          <End Role="Lab" Type="Self.Lab" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lab">
+              <PropertyRef Name="LabID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="LabID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_NIHUserID">
+          <End Role="NIHUser" Type="Self.NIHUser" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NIHUser">
+              <PropertyRef Name="NIHUserID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="NIHUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_RoleID">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LitsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Boxes" EntityType="Self.Box" />
+          <EntitySet Name="Freezers" EntityType="Self.Freezer" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Labs" EntityType="Self.Lab" />
+          <EntitySet Name="NIHUsers" EntityType="Self.NIHUser" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="ItemLocations" EntityType="Self.ItemLocation" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <AssociationSet Name="FK_Box_FreezerID" Association="Self.FK_Box_FreezerID">
+            <End Role="Freezer" EntitySet="Freezers" />
+            <End Role="Box" EntitySet="Boxes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_BoxID" Association="Self.FK_Item_BoxID">
+            <End Role="Box" EntitySet="Boxes" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Freezer_LabID" Association="Self.FK_Freezer_LabID">
+            <End Role="Lab" EntitySet="Labs" />
+            <End Role="Freezer" EntitySet="Freezers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemLocation_ItemID" Association="Self.FK_ItemLocation_ItemID">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ItemLocation" EntitySet="ItemLocations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_LabID" Association="Self.FK_UserRole_LabID">
+            <End Role="Lab" EntitySet="Labs" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_NIHUserID" Association="Self.FK_UserRole_NIHUserID">
+            <End Role="NIHUser" EntitySet="NIHUsers" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_RoleID" Association="Self.FK_UserRole_RoleID">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LitsModelStoreContainer" CdmEntityContainer="LitsEntities">
+          <EntitySetMapping Name="Boxes">
+            <EntityTypeMapping TypeName="LitsModel.Box">
+              <MappingFragment StoreEntitySet="Box">
+                <ScalarProperty Name="BoxID" ColumnName="BoxID" />
+                <ScalarProperty Name="FreezerID" ColumnName="FreezerID" />
+                <ScalarProperty Name="BoxName" ColumnName="BoxName" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+                <ScalarProperty Name="BoxSize" ColumnName="BoxSize" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Freezers">
+            <EntityTypeMapping TypeName="LitsModel.Freezer">
+              <MappingFragment StoreEntitySet="Freezer">
+                <ScalarProperty Name="FreezerID" ColumnName="FreezerID" />
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="FreezerName" ColumnName="FreezerName" />
+                <ScalarProperty Name="FreezerLocation" ColumnName="FreezerLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="LitsModel.Item">
+              <MappingFragment StoreEntitySet="Item">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="BoxID" ColumnName="BoxID" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="HostSpecies" ColumnName="HostSpecies" />
+                <ScalarProperty Name="WorkingDilution" ColumnName="WorkingDilution" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="POTSNumber" ColumnName="POTSNumber" />
+                <ScalarProperty Name="CatalogNumber" ColumnName="CatalogNumber" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="IsHazardous" ColumnName="IsHazardous" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Labs">
+            <EntityTypeMapping TypeName="LitsModel.Lab">
+              <MappingFragment StoreEntitySet="Lab">
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="LabName" ColumnName="LabName" />
+                <ScalarProperty Name="LabLocation" ColumnName="LabLocation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NIHUsers">
+            <EntityTypeMapping TypeName="LitsModel.NIHUser">
+              <MappingFragment StoreEntitySet="NIHUser">
+                <ScalarProperty Name="NIHUserID" ColumnName="NIHUserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="LitsModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemLocations">
+            <EntityTypeMapping TypeName="LitsModel.ItemLocation">
+              <MappingFragment StoreEntitySet="ItemLocation">
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="LitsModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="LabID" ColumnName="LabID" />
+                <ScalarProperty Name="NIHUserID" ColumnName="NIHUserID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

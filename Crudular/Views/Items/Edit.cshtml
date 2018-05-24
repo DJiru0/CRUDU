@@ -1,0 +1,238 @@
+﻿@model Crudular.Models.Item
+
+@{
+    ViewBag.Title = "Edit";
+    ViewBag.HideNavBar = true;
+}
+
+<div class="row">
+
+    <h2 class="text-center editTitle"><b>Check Out Antibody Item:</b> @Model.ItemID</h2>
+
+
+    <div class="col-md-6 text-center">
+        <div class="col-md-12 form-horizontal" style="padding-left: 50px;padding-top:10px;">
+            @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ItemID)
+        @Html.HiddenFor(model => model.BoxSize)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoxID, "BoxID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("BoxID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.BoxID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsHazardous, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsHazardous, new { htmlAttributes = new { disabled = "disabled" } })
+                    @Html.ValidationMessageFor(model => model.IsHazardous, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrderDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OrderDate, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.OrderDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Vendor, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Vendor, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.Vendor, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HostSpecies, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HostSpecies, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.HostSpecies, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.WorkingDilution, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.WorkingDilution, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.WorkingDilution, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.POTSNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.POTSNumber, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.POTSNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CatalogNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CatalogNumber, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.CatalogNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-offset-2 col-md-10">
+            <input style="float:right;" type="submit" value="Save" class="btn btn-default" />
+        </div>
+}
+        </div>
+    </div>
+
+    <h3 class="text-center" style="color:#09068d;font-weight:bold">@Model.Box.BoxName Box </h3><p class="text-center" style="color:#2323b6;font-weight:bold;font-size:20px" id="itemLocation">Item Location: <span style="padding:5px;border-radius:50px;background-color:#fbce03;border: 1px solid red;color:#3a1da5">sdfs</span></p><hr style="margin-top:0px" />
+    
+    <div style="display:flex" class="col-md-6 container-fluid">
+        <div class="col-md-12 inRow" id="grids"></div><br />
+        <div class="container"style="margin-left:5px;">
+            <div class="row" >
+                <div class="col-sm text-center" style="background-color:#ff6434;color:white;border: 2px solid #ff6434;margin-top:40px">
+                    Filled Spots
+                </div><br />
+                <div class="col-sm text-center" style="background-color:#fbce03;color:red;border: 2px dashed red;">
+                    Item Location
+                </div><br />
+                <div class="col-sm text-center" style="background-color:#639cd1;color:white;border: 2px solid #639cd1;">
+                    Avialable spots
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div>
+    <i class="glyphicon glyphicon-backward"></i>
+    @Html.ActionLink("Back to List", "Index", new { @class = " glyphicon glyphicon-menu-left" })
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        generate();
+        logNumber();
+    })
+
+    function generate() {
+          var value = @ViewBag.BoxSize;
+            //if (value > 20 || value < 1) {
+            //    alert("Please select a number betweeen 1 and 20!");
+            //    return;
+            //}
+            var content = "";
+            var num = 1;
+            var letterIncrement = 0;
+            var alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+            var location = @Html.Raw(Json.Encode(ViewBag.Locations));
+            var filledSpots = @Html.Raw(Json.Encode(ViewBag.FilledLocations));
+            for (var i = 1; i <= value; i++) {
+                for (var j = 1; j <= value; j++) {
+                    if (j === 1) {
+                        var doesContain = containsLocation(location, alphabet[letterIncrement] + num);
+                        var fillSpace = isFilledSpot(filledSpots, alphabet[letterIncrement] + num);
+                        if (doesContain)
+                            content += "<div class='rowss'><div class='gridSelected text-center itemLocation' title='Location " + alphabet[letterIncrement] + num +"\'><span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                        else if (fillSpace)
+                            content += "<div class='rowss'><div class='gridNoHover text-center filledSpots'  title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                        else
+                            content += "<div class='rowss'><div class='grid text-center availableSpots'  title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                    } else if (j === value) {
+                        var doesContain = containsLocation(location, alphabet[letterIncrement] + num);
+                        var fillSpace = isFilledSpot(filledSpots, alphabet[letterIncrement] + num);
+                        if (doesContain)
+                            content += "<div class='gridSelected text-center itemLocation'  title='Location: " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div></div>";
+                        else if (fillSpace)
+                            content += "<div class='gridNoHover text-center filledSpots'  title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div></div>";
+                        else
+                            content += "<div class='grid text-center availableSpots' title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div></div>";
+                    } else {
+                        var doesContain = containsLocation(location, alphabet[letterIncrement] + num);
+                        var fillSpace = isFilledSpot(filledSpots, alphabet[letterIncrement] + num);
+                        if (doesContain)
+                            content += "<div class='gridSelected text-center itemLocation'  title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                        else if (fillSpace)
+                            content += "<div class='gridNoHover text-center filledSpots' title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                        else
+                            content += "<div class='grid text-center availableSpots' title='Location " + alphabet[letterIncrement] + num +"\'> <span>" + alphabet[letterIncrement] + num + "</span> </div>";
+                    }
+                    letterIncrement++;
+                }
+                letterIncrement = 0;
+                num++;
+            }
+            $("#grids").html(content);
+    }
+
+    //Event delegation
+    function logNumber() {
+        $("#grids").on("click", ".grid", function () {
+            var value = $(this).text();
+            if (value.toLowerCase() == "a1") {
+                alert("Item in this spot is nami");
+            }
+            alert("You click " + value);
+        });
+    }
+
+    function containsLocation(arrayStack, needle) {
+          if (needle == arrayStack)
+                return true;
+            else
+                return false;
+    }
+
+    function isFilledSpot(arrayStack, needle) {
+        for (var i = 0; i < arrayStack.length; i++) {
+            if (needle == arrayStack[i])
+                return true;
+        }
+        return false;
+    }
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
